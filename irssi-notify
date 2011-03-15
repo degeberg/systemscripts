@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# requires the fnotify script for irssi and libnotify on the local system
+
 while [ 1 ]; do
     ssh degeberg -o BatchMode=yes 'tail -n0 -f ~/.irssi/fnotify' |
         sed -ru "s/</\&lt;/g;s/>/\&gt;/g;" |
