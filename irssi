@@ -1,0 +1,4 @@
+#/bin/sh
+export TERM=rxvt-unicode
+killall -9 autossh 2> /dev/null
+autossh -M5000 degeberg -t 'screen -raAd irssi'
