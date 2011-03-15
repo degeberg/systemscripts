@@ -1,0 +1,50 @@
+#!/bin/bash
+
+if [ $(whoami) != "root" ]; then
+    sudo $0 $*
+    exit 0
+fi;
+
+DEVICE=acpi_video0
+
+CUR=$(cat /sys/class/backlight/$DEVICE/brightness)
+MAX=$(cat /sys/class/backlight/$DEVICE/max_brightness)
+STEP=$(echo $MAX/10 | bc)
+
+function set_brightness() {
+    if [ "$1" -gt "$MAX" ]; then
+        new=$MAX
+    else
+        if [ "$1" -lt "0" ]; then
+            new=0
+        else
+            new=$1
+        fi
+    fi
+
+    echo $new > /sys/class/backlight/$DEVICE/brightness
+}
+
+case "$1" in
+    up)
+        set_brightness $(echo "$CUR+$STEP" | bc)
+        ;;
+    down)
+        set_brightness $(echo "$CUR-$STEP" | bc)
+        ;;
+    max)
+        set_brightness $MAX
+        ;;
+    min)
+        set_brightness 0
+        ;;
+    [0-9]*)
+        set_brightness $1
+        ;;
+    "")
+        echo $CUR
+        ;;
+    *)
+        echo "usage: $0 [up|down|max|min|0-9*]"
+        exit 1
+esac

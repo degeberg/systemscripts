@@ -1,0 +1,8 @@
+#!/bin/sh
+while [ 1 ]; do
+    ssh degeberg -o BatchMode=yes 'tail -n0 -f ~/.irssi/fnotify' |
+        sed -ru "s/</\&lt;/g;s/>/\&gt;/g;" |
+            while read heading message; do
+                notify-send -i notification-message-im -c im.received "[irssi] ${heading}" "${message}"
+            done
+done
