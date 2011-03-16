@@ -1,0 +1,14 @@
+#/bin/sh
+
+# "fix" for "TouchPad at * lost sync at byte *" error
+
+if [ $UID -ne 0 ]; then
+    sudo $0
+    exit 0
+fi
+
+modprobe -r psmouse
+modprobe psmouse proto=imps
+
+modprobe -r psmouse
+modprobe psmouse
