@@ -4,4 +4,4 @@ killall -9 autossh 2> /dev/null
 
 irssi-notify &
 
-autossh -M5000 degeberg -t 'screen -raAd irssi'
+autossh -M5000 degeberg -t 'LC_ALL=en_US.UTF-8 screen -raAd irssi'
