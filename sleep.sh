@@ -5,7 +5,11 @@ if [ `whoami` != 'root' ]; then
 	exit 0
 fi
 
+if [ -f /usr/bin/firefox-sync ]; then
+    firefox-sync
+fi
+
 sudo -u daniel i3lock -c 000000
-sleep 2
-/etc/acpi/sleep.sh force
+sleep 1
+pm-suspend
 
