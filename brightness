@@ -3,9 +3,20 @@
 if [ $(whoami) != "root" ]; then
     sudo $0 $*
     exit 0
-fi;
+fi
 
-DEVICE=acpi_video0
+case $(hostname) in
+    daniel-laptop)
+        DEVICE=acpi_video0
+        ;;
+    daniel-eee)
+        DEVICE=psblvds
+        ;;
+    *)
+        echo "Unknown host"
+        exit 1
+        ;;
+esac
 
 CUR=$(cat /sys/class/backlight/$DEVICE/brightness)
 MAX=$(cat /sys/class/backlight/$DEVICE/max_brightness)
