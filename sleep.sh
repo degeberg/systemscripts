@@ -6,7 +6,7 @@ if [ `whoami` != 'root' ]; then
 fi
 
 if [ -f /usr/bin/firefox-sync ]; then
-    firefox-sync
+    sudo -u daniel firefox-sync
 fi
 
 sudo -u daniel i3lock -c 000000
